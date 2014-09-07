@@ -20,7 +20,8 @@ public class GlassFishPlugin implements Plugin<Project> {
     }
 
     private void addTasks(Project p) {
-        p.task("pringInfo");
+        p.getTasks().create("pringInfo", PrintInfoTask.class);
+        p.getTasks().create("runApplication", RunApplicationTask.class);
     }
     
 }

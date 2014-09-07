@@ -4,13 +4,13 @@ import org.gradle.api.tasks.TaskAction;
 
 /**
  *
- * @author Alniks
+ * @author Alex Saluk
  */
 public class PrintInfoTask extends GlassFishTask {
     
     @TaskAction
     public void pringInfo() {
-        System.out.println("runnig task");
+        getLogger().quiet("printing from plugin");
     }
     
 }
