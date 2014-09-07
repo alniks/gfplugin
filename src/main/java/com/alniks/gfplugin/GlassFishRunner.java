@@ -7,8 +7,6 @@ import org.glassfish.embeddable.GlassFish;
 import org.glassfish.embeddable.GlassFishException;
 import org.glassfish.embeddable.GlassFishProperties;
 import org.glassfish.embeddable.GlassFishRuntime;
-import org.gradle.api.logging.Logger;
-import org.gradle.api.logging.Logging;
 
 /**
  *
@@ -19,7 +17,6 @@ public class GlassFishRunner {
     private GlassFish gf;
     private final int port;
     private final AtomicBoolean started = new AtomicBoolean();
-    private static final Logger LOGGER = Logging.getLogger(GlassFishRunner.class);
 
     public GlassFishRunner(int port) {
         this.port = port;
@@ -34,16 +31,13 @@ public class GlassFishRunner {
         
         GlassFishRuntime glassfishRuntime = GlassFishRuntime.bootstrap(new BootstrapProperties());
         gf = glassfishRuntime.newGlassFish(gfp);
-        LOGGER.info("starting gf");
         gf.start();
-        LOGGER.info("gf started");
         started.set(true);
     }
     
     public void stop() throws GlassFishException {
         if (!started.get())
             throw new IllegalStateException("the server has not been started");
-        LOGGER.info("stopping gf");
         gf.stop();
         started.set(false);
     }
@@ -52,14 +46,14 @@ public class GlassFishRunner {
     public void deploy(File file) throws GlassFishException {
         if (!started.get())
             throw new IllegalStateException("the server has not been started");
-        LOGGER.info("deploying application: " + file);
-        gf.getDeployer().deploy(file, "--name="+file.getName(), "--contextroot="+file.getName());
+        String appName = file.getName().substring(0, file.getName().lastIndexOf("."));//TODO receiving WEB9100: No WebSecurityManager found for context
+        gf.getDeployer().deploy(file, "--name="+file.getName(), "--contextroot="+file.getName(), "--force=true");
     }
     
     public void undeploy(File file) throws GlassFishException {
         if (!started.get())
             throw new IllegalStateException("the server has not been started");
-        LOGGER.info("undeploying application: " + file);
-        gf.getDeployer().undeploy(file.getName());
+        String appName = file.getName().substring(0, file.getName().lastIndexOf("."));
+        gf.getDeployer().undeploy(appName);
     }
 }
