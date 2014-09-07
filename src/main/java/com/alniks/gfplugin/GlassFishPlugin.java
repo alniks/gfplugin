@@ -6,14 +6,21 @@ import org.gradle.api.plugins.WarPlugin;
 
 /**
  *
- * @author Alniks
+ * @author Alex Saluk
  */
-public class GlassFishPlugin implements Plugin<Project>{
+public class GlassFishPlugin implements Plugin<Project> {
+    
+    private static final String EXTENSION_NAME = "gfRun";
 
     @Override
     public void apply(Project p) {
         p.getPlugins().apply(WarPlugin.class);
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        p.getExtensions().create(EXTENSION_NAME, GlassFishExtension.class);
+        addTasks(p);
+    }
+
+    private void addTasks(Project p) {
+        p.task("pringInfo");
     }
     
 }
