@@ -10,7 +10,7 @@ import org.gradle.api.plugins.WarPlugin;
  */
 public class GlassFishPlugin implements Plugin<Project> {
     
-    private static final String EXTENSION_NAME = "gfRun";
+    public static final String EXTENSION_NAME = "gfRun";
 
     @Override
     public void apply(Project p) {
@@ -20,8 +20,8 @@ public class GlassFishPlugin implements Plugin<Project> {
     }
 
     private void addTasks(Project p) {
-        p.getTasks().create("pringInfo", PrintInfoTask.class);
         p.getTasks().create("runApplication", RunApplicationTask.class);
+        p.getTasks().create("stopApplication", StopApplicationTask.class);
     }
     
 }
