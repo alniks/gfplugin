@@ -17,6 +17,7 @@ public abstract class GlassFishTask extends DefaultTask {
         stopPort = extension.getStopPort();
         stopKey = extension.getStopKey();
         port = extension.getPort();
+        getLogger().info("received following extention values: port={}, stopPort={}, stopKey={}", port, stopPort, stopKey);
     }
     
 }

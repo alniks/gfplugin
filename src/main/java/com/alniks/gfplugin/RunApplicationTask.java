@@ -1,11 +1,12 @@
 package com.alniks.gfplugin;
 
 import java.io.File;
-import java.io.IOException;
 import org.glassfish.embeddable.GlassFishException;
 import org.gradle.api.GradleException;
 import org.gradle.api.plugins.WarPlugin;
 import org.gradle.api.tasks.TaskAction;
+import org.gradle.logging.ProgressLogger;
+import org.gradle.logging.ProgressLoggerFactory;
 
 /**
  *
@@ -16,8 +17,11 @@ public class RunApplicationTask extends GlassFishTask {
     
     @TaskAction
     public void runApplication() {
-        //TODO add progress?
         initFromExtension();
+        ProgressLogger progressLogger = getServices().get(ProgressLoggerFactory.class).newOperation(StopApplicationTask.class);
+        progressLogger.setDescription("Start GlassFish server");
+        progressLogger.setShortDescription("Starting gf");
+        progressLogger.started();
         GlassFishRunner runner = new GlassFishRunner(port);
         getLogger().info("starting GlassFish server");
         try {
@@ -29,9 +33,16 @@ public class RunApplicationTask extends GlassFishTask {
             getLogger().info("application deployed");
             StopMonitor monitor = new StopMonitor(stopPort, runner, stopKey);
             monitor.start();
-        } catch (GlassFishException | IOException ex) {
+        } catch (Exception ex) {
             getLogger().error("Error running glassfish", ex);
+            try {
+                runner.stop();
+            } catch (GlassFishException ex1) {
+                getLogger().error("Error running glassfish", ex1);
+            }
             throw new GradleException(ex.getMessage(), ex);
+        } finally {
+            progressLogger.completed();
         }
     }
     

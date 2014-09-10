@@ -6,9 +6,9 @@ package com.alniks.gfplugin;
  */
 public class GlassFishExtension {
     
-    private int stopPort;
-    private String stopKey;
-    private int port;
+    private int stopPort = 5555;
+    private String stopKey = "stopKey";
+    private int port = 8080;
 
     public int getStopPort() {
         return stopPort;
