@@ -20,8 +20,13 @@ public class GlassFishPlugin implements Plugin<Project> {
     }
 
     private void addTasks(Project p) {
-        p.getTasks().create("runApplication", RunApplicationTask.class);
-        p.getTasks().create("stopApplication", StopApplicationTask.class);
+        RunApplicationTask run = p.getTasks().create("runApplication", RunApplicationTask.class);
+        run.setDescription("Deploys your war to an embedded gf");
+        run.setGroup(WarPlugin.WEB_APP_GROUP);
+        run.dependsOn(WarPlugin.WAR_TASK_NAME);
+        StopApplicationTask stop = p.getTasks().create("stopApplication", StopApplicationTask.class);
+        stop.setDescription("Stops embedded gf");
+        stop.setGroup(WarPlugin.WEB_APP_GROUP);
     }
     
 }
