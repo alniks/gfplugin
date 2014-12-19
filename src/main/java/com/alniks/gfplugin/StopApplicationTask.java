@@ -15,15 +15,15 @@ import org.gradle.logging.ProgressLoggerFactory;
  */
 public class StopApplicationTask extends GlassFishTask {
     
-    
-
     @TaskAction
     public void stop() {
-        initFromExtension();
         ProgressLogger progressLogger = getServices().get(ProgressLoggerFactory.class).newOperation(StopApplicationTask.class);
         progressLogger.setDescription("Stop GlassFish server");
         progressLogger.setShortDescription("Stopping gf");
         progressLogger.started();
+        GlassFishExtension extension = (GlassFishExtension) getProject().getExtensions().findByName(GlassFishPlugin.EXTENSION_NAME);
+        getLogger().info("extention in task " + extension);
+        initFromExtension(extension);
         try (Socket s = new Socket(InetAddress.getByName("127.0.0.1"), stopPort)) {
             s.setSoLinger(false, 0);
             OutputStream out = s.getOutputStream();

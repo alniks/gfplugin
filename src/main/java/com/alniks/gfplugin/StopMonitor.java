@@ -38,6 +38,7 @@ public class StopMonitor extends Thread {
 
     @Override
     public void run() {
+        LOGGER.log(Level.INFO, "started monitor on port:{0}", port);
         try (ServerSocket serverSocket = new ServerSocket(port, 1, InetAddress.getByName("127.0.0.1"))) {
             serverSocket.setReuseAddress(true);
             while (true) { //TODO executor?

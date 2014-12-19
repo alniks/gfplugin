@@ -10,7 +10,7 @@ import org.gradle.api.plugins.WarPlugin;
  */
 public class GlassFishPlugin implements Plugin<Project> {
     
-    public static final String EXTENSION_NAME = "gfExtension";
+    public static final String EXTENSION_NAME = "gf";
 
     @Override
     public void apply(Project p) {

@@ -1,5 +1,7 @@
 package com.alniks.gfplugin;
 
+import java.io.File;
+import java.util.List;
 import org.gradle.api.DefaultTask;
 
 /**
@@ -11,13 +13,14 @@ public abstract class GlassFishTask extends DefaultTask {
     protected int stopPort = 5555;
     protected String stopKey = "stopKey";
     protected int port = 8080;
+    protected List<File> files;
     
-    protected void initFromExtension() {
-        GlassFishExtension extension = (GlassFishExtension) getProject().getExtensions().getByName(GlassFishPlugin.EXTENSION_NAME);
+    public void initFromExtension(GlassFishExtension extension) {
         stopPort = extension.getStopPort();
         stopKey = extension.getStopKey();
         port = extension.getPort();
-        getLogger().info("received following extention values: port={}, stopPort={}, stopKey={}", port, stopPort, stopKey);
+        files = extension.getFiles();
+        getLogger().info("{} received following extention {}", getClass(), extension);
     }
     
 }
