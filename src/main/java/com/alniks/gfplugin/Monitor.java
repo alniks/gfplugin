@@ -8,29 +8,28 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.glassfish.embeddable.GlassFishException;
 
 /**
  *
  * @author Alex Saluk
  */
-public class StopMonitor extends Thread {
+public class Monitor extends Thread {
     
-    private static final Logger LOGGER = Logger.getLogger(StopMonitor.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Monitor.class.getName());
 
     private final GlassFishRunner runner;
-    private final String key;
+    private final GFTasks tasks;
     private final int port;
 
-    public StopMonitor(int port, GlassFishRunner runner, String key) {
+    public Monitor(int port, GlassFishRunner runner, GFTasks tasks) {
         this.runner = runner;
         if (port <= 0) {
             throw new IllegalArgumentException("Incorrect stop port");
         }
-        if (key == null) {
+        if (tasks == null) {
             throw new IllegalArgumentException("Incorrect stop key");
         }
-        this.key = key;
+        this.tasks = tasks;
         this.port = port;
         setDaemon(true);
         setName("GlassFishStopMonitor");
@@ -46,14 +45,14 @@ public class StopMonitor extends Thread {
                     socket.setSoLinger(false, 0);
                     LineNumberReader lin = new LineNumberReader(new InputStreamReader(socket.getInputStream()));
                     String line = lin.readLine();
-                    if (!this.key.equals(line)) {
+                    if (!tasks.contais(line)) {
                         continue;
                     }
                     try {
-                        LOGGER.log(Level.INFO, "Stopping server due to received '{}' command...", line);
-                        runner.stop();
-                    } catch (GlassFishException e) {
-                        LOGGER.log(Level.SEVERE, "Exception when stopping server", e);
+                        LOGGER.log(Level.INFO, "Exequting task '{0}'", line);
+                        tasks.execute(line, runner);
+                    } catch (RunnerException e) {
+                        LOGGER.log(Level.SEVERE, "Exception when exequting task", e);
                     }
                     return;
                 } catch (IOException e) {
@@ -63,8 +62,7 @@ public class StopMonitor extends Thread {
         } catch (IOException ex) {
             LOGGER.log(Level.SEVERE, "Exception when opening server socket", ex);
         }
-        
-        
+
     }
 
 }

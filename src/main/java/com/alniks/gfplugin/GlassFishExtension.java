@@ -9,17 +9,18 @@ import java.util.List;
  */
 public class GlassFishExtension {
     
-    private int stopPort = 5555;
+    private int listenPort = 5555;
     private String stopKey = "stopKey";
+    private String redeployKey = "redeployKey";
     private int port = 8080;
     private List<File> files;
 
-    public int getStopPort() {
-        return stopPort;
+    public int getListenPort() {
+        return listenPort;
     }
 
-    public void setStopPort(int stopPort) {
-        this.stopPort = stopPort;
+    public void setListenPort(int listenPort) {
+        this.listenPort = listenPort;
     }
 
     public String getStopKey() {
@@ -46,9 +47,17 @@ public class GlassFishExtension {
         this.files = files;
     }
 
+    public String getRedeployKey() {
+        return redeployKey;
+    }
+
+    public void setRedeployKey(String redeployKey) {
+        this.redeployKey = redeployKey;
+    }
+
     @Override
     public String toString() {
-        return "GlassFishExtension{" + "stopPort=" + stopPort + ", stopKey=" + stopKey + ", port=" + port + ", files=" + files + '}';
+        return "GlassFishExtension{" + "listenPort=" + listenPort + ", stopKey=" + stopKey + ", port=" + port + ", files=" + files + '}';
     }
     
 }
