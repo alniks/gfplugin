@@ -1,5 +1,7 @@
-package com.alniks.gfplugin;
+package com.alniks.gfplugin.tasks;
 
+import com.alniks.gfplugin.GlassFishExtension;
+import com.alniks.gfplugin.GlassFishPlugin;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetAddress;

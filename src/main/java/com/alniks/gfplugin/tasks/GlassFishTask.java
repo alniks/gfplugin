@@ -1,5 +1,6 @@
-package com.alniks.gfplugin;
+package com.alniks.gfplugin.tasks;
 
+import com.alniks.gfplugin.GlassFishExtension;
 import java.io.File;
 import java.util.List;
 import java.util.stream.Stream;

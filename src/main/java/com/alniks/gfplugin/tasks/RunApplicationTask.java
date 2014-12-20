@@ -1,5 +1,12 @@
-package com.alniks.gfplugin;
+package com.alniks.gfplugin.tasks;
 
+import com.alniks.gfplugin.GFTasks;
+import com.alniks.gfplugin.GlassFishExtension;
+import com.alniks.gfplugin.GlassFishPlugin;
+import com.alniks.gfplugin.GlassFishRunner;
+import com.alniks.gfplugin.Monitor;
+import com.alniks.gfplugin.RunnerException;
+import com.alniks.gfplugin.tasks.StopApplicationTask;
 import groovy.lang.MissingPropertyException;
 import org.gradle.api.GradleException;
 import org.gradle.api.UnknownTaskException;

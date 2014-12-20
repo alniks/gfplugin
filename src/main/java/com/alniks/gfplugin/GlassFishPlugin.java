@@ -1,5 +1,7 @@
 package com.alniks.gfplugin;
 
+import com.alniks.gfplugin.tasks.RunApplicationTask;
+import com.alniks.gfplugin.tasks.StopApplicationTask;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.plugins.WarPlugin;
