@@ -1,9 +1,11 @@
 package com.alniks.gfplugin;
 
 import java.io.File;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.glassfish.embeddable.BootstrapProperties;
 import org.glassfish.embeddable.GlassFish;
@@ -58,8 +60,6 @@ public class GlassFishRunner {
     public void redeploy(Stream<File> files) {
         files.forEach((f) -> {
             undeploy(f);
-        });
-        files.forEach((f) -> {
             deploy(f);
         });
     }
@@ -69,9 +69,9 @@ public class GlassFishRunner {
         LOGGER.log(Level.INFO, "deploying application {0}", file);
         if (!started.get())
             throw new IllegalStateException("the server has not been started");
-        String appName = file.getName().substring(0, file.getName().lastIndexOf("."));//TODO receiving WEB9100: No WebSecurityManager found for context
+        String appName = getAppName(file);
         try {
-            gf.getDeployer().deploy(file, "--name="+file.getName(), "--contextroot="+file.getName(), "--force=true");
+            gf.getDeployer().deploy(file, "--name="+appName, "--contextroot="+appName, "--force=true");
         } catch (GlassFishException ex) {
             throw new RunnerException(ex);
         }
@@ -81,11 +81,16 @@ public class GlassFishRunner {
         LOGGER.log(Level.INFO, "undeploying application {0}", file);
         if (!started.get())
             throw new IllegalStateException("the server has not been started");
-        String appName = file.getName().substring(0, file.getName().lastIndexOf("."));
+        String appName = getAppName(file);
         try {
             gf.getDeployer().undeploy(appName);
         } catch (GlassFishException ex) {
             throw new RunnerException(ex);
         }
+    }
+    
+    private String getAppName(File file) {
+        //return file.getName().substring(0, file.getName().lastIndexOf("."));//TODO receiving WEB9100: No WebSecurityManager found for context
+        return file.getName();
     }
 }

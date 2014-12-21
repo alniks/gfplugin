@@ -12,7 +12,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 /**
  *
- * @author Saluk
+ * @author Alex Saluk
  */
 @RunWith(MockitoJUnitRunner.class)
 public class MonitorTest {

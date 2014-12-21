@@ -49,7 +49,7 @@ public class RunApplicationTask extends GlassFishTask {
     private GFTasks configureTasks() {
         GFTasks tasks = new GFTasks();
         tasks.addTask(stopKey, r -> r.stop());
-        tasks.addTask(redeployKey, r -> r.redeploy(getFiles()));
+        tasks.addTask(redeployKey, r -> r.redeploy(getFiles())); 
         return tasks;
     }
         

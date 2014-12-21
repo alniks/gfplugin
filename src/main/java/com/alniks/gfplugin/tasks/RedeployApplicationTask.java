@@ -30,8 +30,9 @@ public class RedeployApplicationTask extends GlassFishTask {
         try (Socket s = new Socket(InetAddress.getByName("127.0.0.1"), listenPort)) {
             s.setSoLinger(false, 0);
             OutputStream out = s.getOutputStream();
-            out.write((redeployKey + "\r\nstop\r\n").getBytes());
+            out.write((redeployKey+ "\r\nstop\r\n").getBytes());
             out.flush();
+            s.close();
         } catch (IOException e) {
             getLogger().error("Problems with redeploying applications");
             throw new GradleException(e.getMessage(), e);

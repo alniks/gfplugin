@@ -45,6 +45,11 @@ public class Monitor extends Thread {
                     socket.setSoLinger(false, 0);
                     LineNumberReader lin = new LineNumberReader(new InputStreamReader(socket.getInputStream()));
                     String line = lin.readLine();
+                    if ("stopMonitor".equals(line)) {
+                        Thread.currentThread().interrupt();
+                        serverSocket.close();
+                        return;
+                    }
                     if (!tasks.contais(line)) {
                         continue;
                     }
@@ -54,7 +59,7 @@ public class Monitor extends Thread {
                     } catch (RunnerException e) {
                         LOGGER.log(Level.SEVERE, "Exception when exequting task", e);
                     }
-                    return;
+//                    return;
                 } catch (IOException e) {
                     LOGGER.log(Level.SEVERE, "Exception during monitoring Server", e);
                 }
