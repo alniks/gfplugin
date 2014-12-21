@@ -11,7 +11,6 @@ public class GlassFishExtension {
     
     private int listenPort = 5555;
     private String stopKey = "stopKey";
-    private String redeployKey = "redeployKey";
     private int port = 8080;
     private List<File> files;
 
@@ -45,14 +44,6 @@ public class GlassFishExtension {
 
     public void setFiles(List<File> files) {
         this.files = files;
-    }
-
-    public String getRedeployKey() {
-        return redeployKey;
-    }
-
-    public void setRedeployKey(String redeployKey) {
-        this.redeployKey = redeployKey;
     }
 
     @Override

@@ -15,14 +15,12 @@ public abstract class GlassFishTask extends DefaultTask {
     
     protected int listenPort = 5555;
     protected String stopKey = "stopKey";
-    protected String redeployKey = "redeployKey";
     protected int port = 8080;
     private List<File> files;
     
     public void initFromExtension(GlassFishExtension extension) {
         listenPort = extension.getListenPort();
         stopKey = extension.getStopKey();
-        redeployKey = extension.getRedeployKey();
         port = extension.getPort();
         files = extension.getFiles();
         getLogger().info("{} received following extention {}", getClass(), extension);
