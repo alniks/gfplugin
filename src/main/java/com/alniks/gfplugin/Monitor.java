@@ -32,7 +32,7 @@ public class Monitor extends Thread {
         this.tasks = tasks;
         this.port = port;
         setDaemon(true);
-        setName("GlassFishStopMonitor");
+        setName("EmbeddedGlassFishMonitor");
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Monitor extends Thread {
         LOGGER.log(Level.INFO, "started monitor on port:{0}", port);
         try (ServerSocket serverSocket = new ServerSocket(port, 1, InetAddress.getByName("127.0.0.1"))) {
             serverSocket.setReuseAddress(true);
-            while (true) { //TODO executor?
+            while (!isInterrupted()) { //TODO executor?
                 try (Socket socket = serverSocket.accept()) {
                     socket.setSoLinger(false, 0);
                     LineNumberReader lin = new LineNumberReader(new InputStreamReader(socket.getInputStream()));

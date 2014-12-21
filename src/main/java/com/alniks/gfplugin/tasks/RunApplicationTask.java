@@ -6,7 +6,6 @@ import com.alniks.gfplugin.GlassFishPlugin;
 import com.alniks.gfplugin.GlassFishRunner;
 import com.alniks.gfplugin.Monitor;
 import com.alniks.gfplugin.RunnerException;
-import com.alniks.gfplugin.tasks.StopApplicationTask;
 import groovy.lang.MissingPropertyException;
 import org.gradle.api.GradleException;
 import org.gradle.api.UnknownTaskException;
@@ -49,8 +48,8 @@ public class RunApplicationTask extends GlassFishTask {
     
     private GFTasks configureTasks() {
         GFTasks tasks = new GFTasks();
-        tasks.addTask(stopKey, t -> t.stop());
-        tasks.addTask(redeployKey, t -> t.redeploy(getFiles()));
+        tasks.addTask(stopKey, r -> r.stop());
+        tasks.addTask(redeployKey, r -> r.redeploy(getFiles()));
         return tasks;
     }
         
