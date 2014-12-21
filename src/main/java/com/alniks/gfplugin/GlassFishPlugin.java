@@ -1,6 +1,5 @@
 package com.alniks.gfplugin;
 
-import com.alniks.gfplugin.tasks.RedeployApplicationTask;
 import com.alniks.gfplugin.tasks.RunApplicationTask;
 import com.alniks.gfplugin.tasks.StopApplicationTask;
 import org.gradle.api.Plugin;
@@ -30,9 +29,6 @@ public class GlassFishPlugin implements Plugin<Project> {
         StopApplicationTask stop = p.getTasks().create("stopApplication", StopApplicationTask.class);
         stop.setDescription("Stops embedded gf");
         stop.setGroup(WarPlugin.WEB_APP_GROUP);
-        RedeployApplicationTask redeploy = p.getTasks().create("redeployApplication", RedeployApplicationTask.class);
-        redeploy.setDescription("Redeploys currently deployed application");
-        redeploy.setGroup(WarPlugin.WEB_APP_GROUP);
     }
     
 }

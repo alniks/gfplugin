@@ -1,12 +1,9 @@
 package com.alniks.gfplugin;
 
 import java.io.File;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.glassfish.embeddable.BootstrapProperties;
 import org.glassfish.embeddable.GlassFish;
 import org.glassfish.embeddable.GlassFishException;
@@ -56,14 +53,7 @@ public class GlassFishRunner {
         }
         started.set(false);
     }
-    
-    public void redeploy(Stream<File> files) {
-        files.forEach((f) -> {
-            undeploy(f);
-            deploy(f);
-        });
-    }
-    
+        
     //TODO hot deployment
     public void deploy(File file) {
         LOGGER.log(Level.INFO, "deploying application {0}", file);
