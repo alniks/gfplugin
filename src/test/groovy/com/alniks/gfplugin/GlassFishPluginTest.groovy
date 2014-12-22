@@ -14,7 +14,6 @@ class GlassFishPluginTest extends Specification {
     
     static final RUN_APP_TASK_NAME = 'runApplication'
     static final STOP_APP_TASK_NAME = 'stopApplication'
-    static final REDEPLOY_APP_TASK_NAME = 'redeployApplication'
 
     Project project
     def setup() {
@@ -56,14 +55,6 @@ class GlassFishPluginTest extends Specification {
             stop.stopKey == 'sKey'
             stop.port == 321
             
-            Task redeploy = project.tasks.findByName(REDEPLOY_APP_TASK_NAME)
-            redeploy != null
-            redeploy.description == 'Redeploys currently deployed application'
-            redeploy.group == WarPlugin.WEB_APP_GROUP
-            redeploy.stopApplication()
-            redeploy.listenPort == 12345
-            redeploy.redeployKey == 'rKey'
-            redeploy.port == 321
     }
     
 }
